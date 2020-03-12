@@ -4,7 +4,7 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI || "mongodb+srv://bintech:1234@dbbintech-zalgy.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const db = '1712879_mydata';
-router.get('/category', async (req, res) => {
+router.get('/api/category', async (req, res) => {
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
         const dbo = client.db(db).collection('category');
@@ -26,7 +26,7 @@ router.get('/category', async (req, res) => {
     client.close();
 })
 
-router.get('/producttype/:id', async (req, res) => {
+router.get('/api/producttype/:id', async (req, res) => {
     
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
@@ -39,7 +39,7 @@ router.get('/producttype/:id', async (req, res) => {
     client.close();
 })
 
-router.get('/product/:id', async (req, res) => {
+router.get('/api/product/:id', async (req, res) => {
     console.log(req.params.id)
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {

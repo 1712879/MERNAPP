@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
-const port = process.env.PORT || 8080; // Step 1
+const port = process.env.PORT || 5000; // Step 1
 
 app.use('/', require('./Controllers/indexC'));
 const path = require('path');

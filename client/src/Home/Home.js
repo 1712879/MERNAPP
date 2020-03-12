@@ -11,7 +11,7 @@ class Home extends React.Component{
     }
 
     componentWillMount(){
-        axios.get('/category')
+        axios.get('/api/category')
             .then(res => {
                 console.log(res.data);
                 this.setState({
