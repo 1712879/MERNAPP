@@ -24,11 +24,7 @@ class Home extends React.Component{
     render(){
         let category = this.state.category.map(e => {
             e.TEN_DANH_MUC = e.TEN_DANH_MUC.substring(1, e.TEN_DANH_MUC.length - 1);
-            let categoryItem = e.categoryItem.forEach(item => {
-                return(
-                    <li key={item._id}>{item.TEN_LOAI}</li>
-                )
-            })
+            let categoryItem = e.categoryItem.toString();
             return(
                 <li key = {e._id}>
                     <ul>
@@ -36,6 +32,7 @@ class Home extends React.Component{
                         <li>
                             {categoryItem}
                         </li>
+                        
                     </ul>
                 </li>
             )
