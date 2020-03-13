@@ -1,0 +1,29 @@
+
+
+.wrapper{
+    padding: 0px 5px 0 20px;
+}
+
+.row{
+    width: 100%;
+}
+
+.card-category{
+    list-style: none;
+    padding: 30px;
+}
+
+.card-category li{
+    cursor: pointer;
+}
+
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.product{
+    width: 30%;
+    margin-right: 30px;
+}

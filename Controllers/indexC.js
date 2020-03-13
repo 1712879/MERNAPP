@@ -7,18 +7,8 @@ const db = '1712879_mydata';
 router.get('/api/category', async (req, res) => {
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
-        const dbo = client.db(db).collection('category');
-        dbo.aggregate([
-            {
-                $lookup: 
-                {
-                    from: 'producttype',
-                    localField: 'MA_DANH_MUC',
-                    foreignField: 'MA_DANH_MUC',
-                    as: 'categoryItem'
-                }
-            }
-        ]).toArray((err, result) => {
+        const dbo = client.db(db).collection('producttype');
+        dbo.find({}).toArray((err, result) => {
             if (err) throw err;
             res.send(result);
         })
