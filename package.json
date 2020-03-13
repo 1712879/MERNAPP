@@ -12,7 +12,7 @@
     "client": "cd client && npm start",
     "server": "node server.js --ignore client",
     "build": "echo 'hello build'",
-    "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
+    "start": "concurrently --kill-others \"npm run server\""
   },
   "keywords": [],
   "author": "",
