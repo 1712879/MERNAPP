@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from '../Components/Header';
+import Footer from '../Components/Footer';
 class Home extends React.Component{
     constructor(props) {
         super(props);
@@ -24,8 +24,20 @@ class Home extends React.Component{
     render(){
         let category = this.state.category.map(e => {
             e.TEN_DANH_MUC = e.TEN_DANH_MUC.substring(1, e.TEN_DANH_MUC.length - 1);
+            let categoryItem = e.categoryItem.forEach(item => {
+                return(
+                    <li key={item._id}>{item.TEN_LOAI}</li>
+                )
+            })
             return(
-                <li key = {e._id}>{e.TEN_DANH_MUC}</li>
+                <li key = {e._id}>
+                    <ul>
+                        {e.TEN_DANH_MUC}
+                        <li>
+                            {categoryItem}
+                        </li>
+                    </ul>
+                </li>
             )
         })
         return(
