@@ -1,20 +1,38 @@
-
-
 .wrapper{
-    padding: 0px 5px 0 20px;
+   padding: 5px;
 }
 
 .row{
     width: 100%;
 }
 
+.header{
+    margin: 0px 5px 0 5px;
+}
+
+.body{
+    margin-top: 20px;
+}
+
+.footer{
+    width: 100%;
+}
+
 .card-category{
     list-style: none;
-    padding: 30px;
+    
+}
+
+.category-title{
+    padding: 10px 30px;
 }
 
 .card-category li{
     cursor: pointer;
+}
+
+.card-category li:hover{
+    color: tomato;
 }
 
 .content{
@@ -26,4 +44,28 @@
 .product{
     width: 30%;
     margin-right: 30px;
+    cursor: pointer;
+}
+
+.card-header{
+    text-align: center;
+}
+
+.product-price{
+    border: 1px solid #d63031;
+    padding: 10px;
+}
+
+.product:hover .product-price{
+    background-color: #d63031;
+    color: whitesmoke;
+}
+
+.product:hover{
+    border: 1px solid tomato;
+}
+
+.product:hover a{
+    text-decoration: none;
+
 }

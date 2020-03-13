@@ -10,7 +10,7 @@ class Category extends React.Component{
 
     render(){
         let category = this.props.category.map(e => {
-
+            
             if(e.TEN_LOAI[0] === '\"'){
                 e.TEN_LOAI = e.TEN_LOAI.substring(1, e.TEN_LOAI.length - 1);
             }
@@ -24,8 +24,12 @@ class Category extends React.Component{
 
         return(
             <div className="col-3 category">
-                <div className="card border-secondary mb-3 card-category">
-                    {category}
+                <div className="card border-secondary mb-3 ">
+                    <h3 className="category-title">Danh Mục</h3>
+                    <ul className="card-category">
+                        {category}
+                    </ul>
+                    
                 </div>
             </div>
         )

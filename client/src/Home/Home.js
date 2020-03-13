@@ -4,7 +4,7 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import Category from './Category';
 import Content from './Content';
-
+import { Route,Switch } from 'react-router-dom';
 import './Home.css';
 class Home extends React.Component{
     constructor(props) {
@@ -18,7 +18,7 @@ class Home extends React.Component{
     componentWillMount(){
         axios.get('/api/category')
             .then(res => {
-                console.log(res.data)
+                
                 this.setState({
                     
                     category: res.data
@@ -31,27 +31,18 @@ class Home extends React.Component{
         this.setState({
             chooseID: maloaihang
         })
-
-        console.log(this.state)
     }
 
     render(){
         
         return(
-            <div className="wrapper">
-                <div className="row header">
-                    <Header />
-                </div>
-                <div className="row body">
-                    <Category category={this.state.category} onChoose={this.onChoose}/>
-                    <Content chooseID={this.state.chooseID}/>
-                </div>
-                <div className="row footer">
-                    <Footer/>
-                </div>
+            <div className="row body">
+                <Category category={this.state.category} onChoose={this.onChoose}/>
+                <Content chooseID={this.state.chooseID}/>
             </div>
         );
     }
 }
+
 
 export default Home;

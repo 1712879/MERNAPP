@@ -1,0 +1,5 @@
+.product-detail{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    margin-top: 20px;
+}
