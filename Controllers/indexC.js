@@ -17,7 +17,6 @@ router.get('/api/category', async (req, res) => {
 })
 
 router.get('/api/producttype/:id', async (req, res) => {
-    
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
         const dbo = client.db(db).collection('products');
@@ -30,15 +29,31 @@ router.get('/api/producttype/:id', async (req, res) => {
 })
 
 router.get('/api/product/:id', async (req, res) => {
-    console.log(req.params.id)
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
         const dbo = client.db(db).collection('products');
-        dbo.find({MA_SAN_PHAM: req.params.id}).toArray((err, result) => {
+        dbo.find({MA_SAN_PHAM: req.params.id})
+        .toArray((err, result) => {
             if (err) throw err;
             res.send(result);
         })
     });
+    client.close();
+})
+
+router.get('/api/product-related/:id_type/:id_p', async (req, res) => {
+    let id_type = req.params.id_type;
+    let id_p = req.params.id_p;
+    let client = new MongoClient(uri, {useNewUrlParser: true});
+    await client.connect((err, result) => {
+        const dbo = client.db(db).collection('products');
+        dbo.find({
+          $and: [{MA_LOAI_HANG: id_type}, {MA_SAN_PHAM: {$ne: id_p}}]  
+        }).limit(8).toArray((err, result) => {
+            if (err) throw err;
+            res.send(result);
+        })
+    })
     client.close();
 })
 

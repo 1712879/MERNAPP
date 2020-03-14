@@ -11,20 +11,40 @@ class Home extends React.Component{
         super(props);
         this.state = {
             category: [],
-            chooseID: 'LH001'
+            chooseID: 'LH001',
+            loading: false
         }
     }
 
     componentWillMount(){
+        console.log('home rendering')
+        this.setState({
+            loading: true
+        })
+
         axios.get('/api/category')
             .then(res => {
                 
                 this.setState({
-                    
                     category: res.data
                 })
             })
             .catch(error => console.log(error));
+    }
+
+    componentDidUpdate(){
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+
+    componentDidMount(){
+        console.log('home rendered')
+        this.setState({
+            loading: false
+        })
+        
     }
 
     onChoose = (maloaihang) => {
@@ -34,12 +54,12 @@ class Home extends React.Component{
     }
 
     render(){
-        
         return(
-            <div className="row body">
-                <Category category={this.state.category} onChoose={this.onChoose}/>
-                <Content chooseID={this.state.chooseID}/>
+            <div className="row1 body">
+                <Category category={this.state.category} onChoose={this.onChoose} loading={this.state.loading}/>
+                <Content chooseID={this.state.chooseID} loading={this.state.loading}/>
             </div>
+            
         );
     }
 }

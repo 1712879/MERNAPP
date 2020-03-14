@@ -23,9 +23,10 @@ class Category extends React.Component{
         })
 
         return(
-            <div className="col-3 category">
-                <div className="card border-secondary mb-3 ">
+            <div className="category-wrapper">
+                <div className="card border-secondary mb-3 category">
                     <h3 className="category-title">Danh Mục</h3>
+                    
                     <ul className="card-category">
                         {category}
                     </ul>

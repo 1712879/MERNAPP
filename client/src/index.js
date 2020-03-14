@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Home from './Home/Home';
 import Header from './Components/Header';
@@ -11,7 +10,7 @@ import ProductView from './DetailProduct/ProductView';
 import { Switch,Route, BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
     <div className="wrapper">
-        <div className="row header">
+        <div className="row1 header">
             <Header />
         </div>
         <BrowserRouter>
@@ -20,14 +19,12 @@ ReactDOM.render(
                 <Route 
                     path={`/product/:id`}
                     component={ProductView}
-                ></Route>
+                />
             </Switch>
-            
-
         </BrowserRouter>
         
 
-        <div className="row footer">
+        <div className="row1 footer">
             <Footer/>
         </div>
     </div>
