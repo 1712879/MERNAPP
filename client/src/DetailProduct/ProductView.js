@@ -4,7 +4,6 @@ import './ProductView.css';
 // import '../Home/Home.css';
 import Card from '../Home/Card';
 import { Link } from 'react-router-dom';
-
 class ProductView extends React.Component{
     constructor(props) {
         super(props);
@@ -20,7 +19,7 @@ class ProductView extends React.Component{
         const id = this.props.match.params.id;
         axios.get('/api/product/'+id)
             .then(res => {
-
+                console.log(res.data)
                 this.setState({
                     product: res.data,
                     productType: res.data[0].MA_LOAI_HANG
@@ -40,7 +39,7 @@ class ProductView extends React.Component{
         const id = newprops.match.params.id;
         axios.get('/api/product/'+id)
             .then(res => {
-
+                
                 this.setState({
                     product: res.data,
                     productType: res.data[0].MA_LOAI_HANG,
@@ -65,7 +64,6 @@ class ProductView extends React.Component{
     }
 
     doChange = (e) => {
-        
         this.setState({
             active: e
         })
@@ -112,7 +110,7 @@ class ProductView extends React.Component{
                     <div className="product-related">
                         {cards}
                     </div>
-                    <div id="pagination-container"></div>
+                    
                     
                 </div>
             )

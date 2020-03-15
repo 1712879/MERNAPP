@@ -1,43 +1,78 @@
 import React from 'react';
 import axios from 'axios';
 import Card from './Card';
-
+import Pagination from '../lib/index';
 class Content extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            productslist : []
+            productslist : [],
+            totalproduct: 0,
+            chooseID: '',
+            currentPage: 1
         }
     }
 
     componentWillMount(){
+        console.log('content rendering')
         let {chooseID} = this.props;
-        axios.get('/api/producttype/' + chooseID)
+        axios.get(`/api/producttype/${chooseID}/1`)
             .then(res => {
-                this.setState({
-                    productslist : res.data
-                })
+                axios.get(`/api/totalproduct/${chooseID}`)
+                    .then(res1 => {
+                        this.setState({
+                            totalproduct: res1.data.total_product,
+                            productslist : res.data,
+                            chooseID: chooseID,
+                        })
+                    })
+                    .catch(error => console.log(error));
             })
             .catch(error => console.log(error));
-    }
-
-
-    componentWillReceiveProps(nextprops){
-        console.log('nextcontent rendering')
-        let {chooseID} = nextprops;
-        axios.get('/api/producttype/' + chooseID)
-            .then(res => {
-                this.setState({
-                    productslist : res.data
-                })
-            })
-            .catch(error => console.log(error));
-
     }
 
     
-    render() {
+    componentWillUpdate(nextProps, nextState){
+        
+        if(nextProps.chooseID != nextState.chooseID){
+            console.log('will update')
+            let {chooseID} = nextProps
+            axios.get(`/api/producttype/${chooseID}/1`)
+            .then(res => {
+                axios.get(`/api/totalproduct/${chooseID}`)
+                    .then(res1 => {
+                        this.setState({
+                            totalproduct: res1.data.total_product,
+                            productslist : res.data,
+                            chooseID: chooseID,
+                            currentPage: 1
+                        })
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+        }
+    }
 
+    changeCurrentPage = numPage => {
+        let chooseID = this.state.chooseID;
+        axios.get(`/api/producttype/${chooseID}/${numPage}`)
+            .then(res => {
+                axios.get(`/api/totalproduct/${chooseID}`)
+                    .then(res1 => {
+                        this.setState({
+                            totalproduct: res1.data.total_product,
+                            productslist : res.data,
+                            chooseID: chooseID,
+                            currentPage: numPage
+                        })
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+    };
+
+    render() {
         let cards = this.state.productslist.map(e => {
             if(e.TEN_SAN_PHAM[0] === '\"'){
                 e.TEN_SAN_PHAM = e.TEN_SAN_PHAM.substring(1,e.TEN_SAN_PHAM.length - 1);
@@ -49,10 +84,27 @@ class Content extends React.Component{
             )
         })
 
+        let {totalproduct} = this.state;
+        let temp = Math.floor(totalproduct / 6);
+        let pageCount = totalproduct % 6 !== 0 ? (temp + 1) : temp;
+
         return (
-            <div className={"content-wrapper" }>
-                {cards}
+            <div>
+                <div className={"content-wrapper" }>
+                    {cards}
+                </div>
+
+                <div id="pagination-wrapper">
+                    <Pagination
+                        currentPage={this.state.currentPage}
+                        totalPages={pageCount}
+                        changeCurrentPage={this.changeCurrentPage}
+                        theme="bottom-border"
+                    />
+                </div>
+            
             </div>
+            
         )
     }
 }
