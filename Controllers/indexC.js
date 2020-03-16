@@ -54,7 +54,7 @@ router.get('/api/product-related/:id_type/:id_p', async (req, res) => {
         const dbo = client.db(db).collection('products');
         dbo.find({
           $and: [{MA_LOAI_HANG: id_type}, {MA_SAN_PHAM: {$ne: id_p}}]  
-        }).limit(8).toArray((err, result) => {
+        }).limit(4).toArray((err, result) => {
             if (err) throw err;
             res.send(result);
         })

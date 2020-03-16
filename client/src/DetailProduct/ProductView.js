@@ -92,7 +92,7 @@ class ProductView extends React.Component{
                 <div key={p._id} className="row1 product-detail">
                     <div className="product-wrapper">
                         <ViewImage images={images} active={this.state.active} doChange={this.doChange}/>
-                        <div className="product-info">
+                        <div className="product-info ml-2">
                             <div className="product-title">
                                 <h1>{p.TEN_SAN_PHAM}</h1>
                             </div>
@@ -160,11 +160,11 @@ class ViewImage extends React.Component{
             )
         })
         return (
-            <div className="image-detail">
+            <div className="image-detail border rounded">
                 {elementImage}
                 
-                <a className="bt goLeft" onClick={this.goLeft}><img className="icon pre" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/previous-69-661269.png"></img></a>
-                <a className="bt goRight" onClick={this.goRight}><img className="icon next" src="https://png.pngtree.com/svg/20170523/d62342689e.png"></img></a>
+                <a className="bt goLeft" onClick={this.goLeft}><img className="icon pre rounded-circle" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/previous-69-661269.png"></img></a>
+                <a className="bt goRight" onClick={this.goRight}><img className="icon next rounded-circle" src="https://png.pngtree.com/svg/20170523/d62342689e.png"></img></a>
             </div>
         )
     }

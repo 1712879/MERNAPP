@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Card from './Card';
-import Pagination from '../lib/index';
+import Pagination from '../Components/Pagination';
 class Content extends React.Component{
     constructor(props) {
         super(props);
@@ -55,22 +55,23 @@ class Content extends React.Component{
     }
 
     changeCurrentPage = numPage => {
-        let chooseID = this.state.chooseID;
+        let {chooseID} = this.state;
         axios.get(`/api/producttype/${chooseID}/${numPage}`)
             .then(res => {
-                axios.get(`/api/totalproduct/${chooseID}`)
-                    .then(res1 => {
-                        this.setState({
-                            totalproduct: res1.data.total_product,
-                            productslist : res.data,
-                            chooseID: chooseID,
-                            currentPage: numPage
-                        })
-                    })
-                    .catch(error => console.log(error));
+                this.setState({
+                    productslist : res.data,
+                    currentPage: numPage
+                })
             })
             .catch(error => console.log(error));
     };
+
+    componentDidUpdate(){
+        window.scrollTo({
+            top: 0,
+            behavior:'smooth'
+        })
+    }
 
     render() {
         let cards = this.state.productslist.map(e => {
@@ -96,10 +97,9 @@ class Content extends React.Component{
 
                 <div id="pagination-wrapper">
                     <Pagination
-                        currentPage={this.state.currentPage}
-                        totalPages={pageCount}
+                        totalpage={pageCount}
                         changeCurrentPage={this.changeCurrentPage}
-                        theme="bottom-border"
+                        currentPage={this.state.currentPage}
                     />
                 </div>
             

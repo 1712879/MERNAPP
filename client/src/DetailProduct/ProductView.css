@@ -46,6 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ffffff;
 }
 
 .slide-wrapper{
@@ -67,16 +68,17 @@
     position: absolute;
     cursor: pointer;
     width: 15%;
+     
 }
 
 
 .goLeft{
-    top: 50%;
+    top: 45%;
     left: 10%;
 }
 
 .goRight{
-    top: 50%;
+    top: 45%;
     right: 0%;
     
 }
@@ -84,12 +86,15 @@
 .icon{
     width: 30px;
     transition: transform .1s;
+    padding: 6px;
 }
 
 .pre{
-    width: 35px;
+    width: 32px;
 }
 
 .icon:hover{
     transform: scale(1.1);
+    background-color: #dfe4ea;
+    border: none;
 }

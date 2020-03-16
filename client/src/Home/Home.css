@@ -1,10 +1,27 @@
 .wrapper{
-   padding: 5px;
    background-color: whitesmoke;
 }
 
-.loading{
-    display: none;
+.nav-item{
+    list-style: none;
+}
+
+.header-navbar{
+    position: absolute;
+    top: 20%;
+    left: 2%;
+}
+
+.navbar-brand{
+    margin-left: 20px;
+    color: white;
+    font-size: 30px;
+    transition: transform .1s;
+}
+
+.navbar-brand:hover{
+    transform: scale(1.1);
+    color: #ff4757;
 }
 
 .row1{
@@ -13,6 +30,9 @@
 
 .header{
     box-shadow: 0px 5px #aaaaaa;
+    background-color: darkslategray;
+    height: 100px;
+    position: relative;
 }
 
 .body{
@@ -113,7 +133,7 @@
 }
 
 .footer{
-    background-color: #636e72;
+    background-color: darkslategray;
     color: whitesmoke;
 }
 
@@ -126,3 +146,6 @@
     justify-content: center;
     align-content: center;
 }
+
+
+.pagination .page-item:not(.disabled){cursor: pointer;}
