@@ -17,8 +17,8 @@ class Home extends React.Component{
 
     componentWillMount(){
         console.log('home rendering')
-        
-        if(!localStorage.getItem('category').length){
+        let data = localStorage.getItem('category');
+        if(data == null || data.length === 0){
             console.log('local')
             axios.get('/api/category')
             .then(res => {
@@ -29,9 +29,9 @@ class Home extends React.Component{
             })
             .catch(error => console.log(error));
         }else{
-            console.log(localStorage.getItem('category'));
+            console.log(data);
             this.setState({
-                category: JSON.parse(localStorage.getItem('category'))
+                category: JSON.parse(data)
             })
         }
         
