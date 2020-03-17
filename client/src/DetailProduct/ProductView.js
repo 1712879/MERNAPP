@@ -4,31 +4,29 @@ import './ProductView.css';
 // import '../Home/Home.css';
 import Card from '../Home/Card';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-spinner-material';
 class ProductView extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             product: [],
-            productType: '',
             relatedProduct: [],
-            active: 1
+            active: 1,
+            loading: true
         }
     }
 
     componentWillMount(){
-        const id = this.props.match.params.id;
+        const {id, type} = this.props.match.params;
         axios.get('/api/product/'+id)
             .then(res => {
-                console.log(res.data)
-                this.setState({
-                    product: res.data,
-                    productType: res.data[0].MA_LOAI_HANG
-                })
-            }).then(res => {
-                axios.get(`/api/product-related/${this.state.productType}/${id}`)
-                    .then(res => {
+                axios.get(`/api/product-related/${type}/${id}`)
+                    .then(res1 => {
+                        console.log(res1.data)
                         this.setState({
-                            relatedProduct: res.data
+                            relatedProduct: res1.data,
+                            product: res.data,
+                            loading: false
                         })
                     })
             })
@@ -36,20 +34,18 @@ class ProductView extends React.Component{
     }
 
     componentWillReceiveProps(newprops){
-        const id = newprops.match.params.id;
+        this.setState({loading: true})
+        console.log('will')
+        const {id,type} = newprops.match.params;
         axios.get('/api/product/'+id)
             .then(res => {
-                
-                this.setState({
-                    product: res.data,
-                    productType: res.data[0].MA_LOAI_HANG,
-                    active: 1
-                })
-            }).then(res => {
-                axios.get(`/api/product-related/${this.state.productType}/${id}`)
-                    .then(res => {
+                axios.get(`/api/product-related/${type}/${id}`)
+                    .then(res1 => {
                         this.setState({
-                            relatedProduct: res.data
+                            relatedProduct: res1.data,
+                            product: res.data,
+                            active: 1,
+                            loading: false
                         })
                     })
             })
@@ -117,6 +113,11 @@ class ProductView extends React.Component{
         })
 
         return (
+            this.state.loading ? 
+            <div className="loading loaddetail"> 
+                    <Spinner size={120} spinnerColor={"#333"} spinnerWidth={2} visible={this.state.loading} />
+                </div>
+            :
             <div>
                 {eleproduct}
             </div>

@@ -147,5 +147,10 @@
     align-content: center;
 }
 
+.loading{
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
 
 .pagination .page-item:not(.disabled){cursor: pointer;}

@@ -10,7 +10,7 @@ class Card extends React.Component{
         return (
             
             <div className="card mb-3 product">
-                <Link to={`/product/${this.props.product.MA_SAN_PHAM}`}>
+                <Link to={`/product/${this.props.product.MA_LOAI_HANG}/${this.props.product.MA_SAN_PHAM}`}>
                 <div className="card-header">
                     <img className="product-img" src={this.props.product.LINK_ANH}></img>
                 </div>
