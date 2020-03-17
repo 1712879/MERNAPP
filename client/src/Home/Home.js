@@ -18,13 +18,23 @@ class Home extends React.Component{
     componentWillMount(){
         console.log('home rendering')
         
-        axios.get('/api/category')
-        .then(res => {
-            this.setState({
-                category: res.data
+        if(!localStorage.getItem('category').length){
+            console.log('local')
+            axios.get('/api/category')
+            .then(res => {
+                this.setState({
+                    category: res.data
+                })
+                localStorage.setItem('category', JSON.stringify(res.data))
             })
-        })
-        .catch(error => console.log(error));
+            .catch(error => console.log(error));
+        }else{
+            console.log(localStorage.getItem('category'));
+            this.setState({
+                category: JSON.parse(localStorage.getItem('category'))
+            })
+        }
+        
     }
 
     onChoose = (maloaihang) => {

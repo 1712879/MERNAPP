@@ -16,7 +16,7 @@ class Card extends React.Component{
                 </div>
                 <div className="card-body">
                     <h6 className="card-title">{this.props.product.TEN_SAN_PHAM}</h6>
-                    <p className="card-text datepost">{this.props.product.THOI_DIEM_DANG}</p>
+                    <p className="card-text datepost">Ngày Đăng: {this.props.product.THOI_DIEM_DANG}</p>
                     <p className="product-price">đ {this.props.product.GIA_HIEN_TAI}</p>
                 </div>
                 </Link>
