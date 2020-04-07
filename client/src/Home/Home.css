@@ -65,7 +65,10 @@
 }
 
 .card-category li:hover{
-    transform: scale(1.05);
+    transform: scaleX(1.05);
+    
+}
+.categoryactive{
     color: tomato;
 }
 
@@ -154,3 +157,13 @@
 }
 
 .pagination .page-item:not(.disabled){cursor: pointer;}
+
+.search{
+    margin-left: 20px;
+}
+
+
+.input{
+    border: none;
+    padding: 5px 20px;
+}

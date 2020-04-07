@@ -6,13 +6,36 @@ const uri = process.env.MONGODB_URI || "mongodb+srv://bintech:1234@dbbintech-zal
 const db = '1712879_mydata';
 const limit = 6;
 
+var data = [];
+
+router.get('/api/products', async (req, res) => {
+    if(data == null || data.length == 0){
+        console.log('not exixts')
+        let client = new MongoClient(uri, {useNewUrlParser: true});
+        await client.connect((err, result) => {
+            const dbo = client.db(db).collection('products');
+            dbo.find().toArray((err, result) => {
+                if (err) throw err;
+                data = result;
+                res.send('Success');
+            })
+            
+        })
+        client.close();
+    }else{
+        console.log('exixts')
+        res.send('Exixts');
+    }
+    
+})
+
 router.get('/api/category', async (req, res) => {
     let client = new MongoClient(uri, {useNewUrlParser: true});
     await client.connect((err, result) => {
         const dbo = client.db(db).collection('producttype');
         dbo.find({}).toArray((err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.send(JSON.stringify(result));
         })
     })
     client.close();
@@ -34,32 +57,56 @@ router.get('/api/producttype/:id/:page', async (req, res) => {
 })
 
 router.get('/api/product/:id', async (req, res) => {
-    let client = new MongoClient(uri, {useNewUrlParser: true});
-    await client.connect((err, result) => {
-        const dbo = client.db(db).collection('products');
-        dbo.find({MA_SAN_PHAM: req.params.id})
-        .toArray((err, result) => {
-            if (err) throw err;
-            res.send(result);
+    if(data != null && data.length > 0){
+        console.log(' co sp');
+        let result = data.find(p => {
+            if(p.MA_SAN_PHAM == req.params.id) return p;
         })
-    });
-    client.close();
+        result = result || {};
+        res.send(JSON.stringify(result))
+    }else{
+        console.log('chua co sp')
+        let client = new MongoClient(uri, {useNewUrlParser: true});
+        await client.connect((err, result) => {
+            const dbo = client.db(db).collection('products');
+            dbo.find({MA_SAN_PHAM: req.params.id})
+            .toArray((err, result) => {
+                if (err) throw err;
+                result = result[0] || {};
+                res.send(JSON.stringify(result));
+            })
+        });
+        client.close();
+    }
+    
 })
 
 router.get('/api/product-related/:id_type/:id_p', async (req, res) => {
     let id_type = req.params.id_type;
     let id_p = req.params.id_p;
-    let client = new MongoClient(uri, {useNewUrlParser: true});
-    await client.connect((err, result) => {
-        const dbo = client.db(db).collection('products');
-        dbo.find({
-          $and: [{MA_LOAI_HANG: id_type}, {MA_SAN_PHAM: {$ne: id_p}}]  
-        }).limit(4).toArray((err, result) => {
-            if (err) throw err;
-            res.send(result);
+
+    if(data != null && data.length > 0){
+        console.log(' co sp');
+        let result = data.filter(p => {
+            if(p.MA_LOAI_HANG == id_type && p.MA_SAN_PHAM != id_p) return true;
+            return false;
         })
-    })
-    client.close();
+        result = result.slice(0,4) || {};
+        res.send(JSON.stringify(result))
+    }else{
+        let client = new MongoClient(uri, {useNewUrlParser: true});
+        await client.connect((err, result) => {
+            const dbo = client.db(db).collection('products');
+            dbo.find({
+            $and: [{MA_LOAI_HANG: id_type}, {MA_SAN_PHAM: {$ne: id_p}}]  
+            }).limit(4).toArray((err, result) => {
+                if (err) throw err;
+                res.send(result);
+            })
+        })
+        client.close();
+    }
+    
 })
 
 router.get('/api/totalproduct/:id', async (req, res) => {

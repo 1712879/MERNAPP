@@ -71,8 +71,8 @@ class ProductView extends React.Component{
                 <Card key={e._id} product={e}/>
             )
         })
-
-        let eleproduct = this.state.product.map(p => {
+        let {product} = this.state;
+        let eleproduct = (p) => {
             if(p.TEN_SAN_PHAM[0] === '\"'){
                 p.TEN_SAN_PHAM = p.TEN_SAN_PHAM.substring(1, p.TEN_SAN_PHAM.length - 1);
                 p.THOI_DIEM_DANG = p.THOI_DIEM_DANG.substring(1, p.THOI_DIEM_DANG.length - 1);
@@ -110,7 +110,7 @@ class ProductView extends React.Component{
                     
                 </div>
             )
-        })
+        }
 
         return (
             this.state.loading ? 
@@ -119,7 +119,7 @@ class ProductView extends React.Component{
                 </div>
             :
             <div>
-                {eleproduct}
+                {eleproduct(product)}
             </div>
             
         )
